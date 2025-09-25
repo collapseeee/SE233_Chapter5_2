@@ -4,9 +4,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
+import se233.chapter5part2.model.SpecialFood;
 
 @Suite
-@SelectClasses({FoodTest.class, GameLoopTest.class, SnakeTest.class})
+@SelectClasses({
+        FoodTest.class,
+        GameLoopTest.class,
+        SnakeTest.class,
+        BoundaryCollisionTest.class,
+        SpecialFood.class,
+        ScoringTest.class,
+        MovementRestrictionTest.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class JUnitTestSuite {
     @BeforeAll

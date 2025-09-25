@@ -10,6 +10,7 @@ import se233.chapter5part2.controller.GameLoop;
 import se233.chapter5part2.model.Direction;
 import se233.chapter5part2.model.Food;
 import se233.chapter5part2.model.Snake;
+import se233.chapter5part2.model.SpecialFood;
 import se233.chapter5part2.view.GameStage;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,12 +21,14 @@ public class GameLoopTest {
     private GameStage gameStage;
     private Snake snake;
     private Food food;
+    private SpecialFood specialFood;
     private GameLoop gameLoop;
     @BeforeEach
     public void setUp() {
         gameStage = new GameStage();
         snake = new Snake(new Point2D(0,0));
         food = new Food(new Point2D(0,1));
+        specialFood = new SpecialFood(new Point2D(0,1));
         gameLoop = new GameLoop(gameStage, snake, food);
     }
     private void clockTickHelper() throws Exception {

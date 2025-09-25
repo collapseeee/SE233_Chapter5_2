@@ -1,21 +1,26 @@
 package se233.chapter5part2.controller;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import se233.chapter5part2.model.Direction;
 import se233.chapter5part2.model.Food;
 import se233.chapter5part2.model.Snake;
+import se233.chapter5part2.model.SpecialFood;
 import se233.chapter5part2.view.GameStage;
 
 public class GameLoop implements Runnable {
     private GameStage gameStage;
     private Snake snake;
     private Food food;
+    private SpecialFood specialFood;
     private float interval = 1000.0f / 10;
     private boolean running;
     public GameLoop(GameStage gameStage, Snake snake, Food food) {
         this.gameStage = gameStage;
         this.snake = snake;
         this.food = food;
+        this.specialFood = new SpecialFood();
         running = true;
     }
     private void keyProcess() {
@@ -34,12 +39,28 @@ public class GameLoop implements Runnable {
     }
     private void checkCollision() {
         if (snake.collided(food)) {
-            snake.grow();
+            snake.collidedRegularFood();
             food.respawn();
         }
-        if (snake.checkDead()) { running = false; }
+        if (snake.collided(specialFood)) {
+            snake.collidedSpecialFood();
+            specialFood.respawn();
+        }
+        if (snake.checkDead()) {
+            showGameOverDialog();
+            running = false;
+        }
     }
-    private void redraw() { gameStage.render(snake,food); }
+    private void showGameOverDialog() {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText("Snake Game Ended");
+            alert.setContentText("Final score: " + snake.getScore() + "\nFinal length: " + snake.getLength());
+            alert.showAndWait();
+        });
+    }
+    private void redraw() { gameStage.render(snake,food,specialFood); }
     @Override
     public void run() {
         while (running) {

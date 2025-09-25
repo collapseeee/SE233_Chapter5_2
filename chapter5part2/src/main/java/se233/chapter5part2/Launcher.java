@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import se233.chapter5part2.controller.GameLoop;
 import se233.chapter5part2.model.Food;
 import se233.chapter5part2.model.Snake;
+import se233.chapter5part2.model.SpecialFood;
 import se233.chapter5part2.view.GameStage;
 
 public class Launcher extends Application {
@@ -16,6 +17,7 @@ public class Launcher extends Application {
         GameStage gameStage = new GameStage();
         Snake snake = new Snake(new Point2D(gameStage.WIDTH/2, gameStage.HEIGHT/2));
         Food food = new Food();
+        SpecialFood specialFood = new SpecialFood();
         GameLoop gameLoop = new GameLoop(gameStage, snake, food);
         Scene scene = new Scene(gameStage, gameStage.WIDTH*gameStage.TILE_SIZE, gameStage.HEIGHT*gameStage.TILE_SIZE);
         scene.setOnKeyPressed(keyEvent -> gameStage.setKey(keyEvent.getCode()));

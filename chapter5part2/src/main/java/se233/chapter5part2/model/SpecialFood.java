@@ -5,15 +5,16 @@ import se233.chapter5part2.view.GameStage;
 
 import java.util.Random;
 
-public class Food {
+public class SpecialFood {
     private Point2D position;
     private Random rn;
+    private static final int SPECIAL_FOOD_SCORE = 5;
 
-    public Food(Point2D position) {
+    public SpecialFood(Point2D position) {
         this.rn = new Random();
         this.position = position;
     }
-    public Food() {
+    public SpecialFood() {
         this.rn = new Random();
         this.position = new Point2D(rn.nextInt(GameStage.WIDTH), rn.nextInt(GameStage.HEIGHT));
     }
@@ -21,9 +22,10 @@ public class Food {
         Point2D prev_position = this.position;
         do {
             this.position = new Point2D(rn.nextInt(GameStage.WIDTH), rn.nextInt(GameStage.HEIGHT));
-        } while (prev_position.equals(this.position));
+        } while (prev_position == this.position);
     }
     public Point2D getPosition() {
         return position;
     }
+    public int getPoints() { return SPECIAL_FOOD_SCORE; }
 }
